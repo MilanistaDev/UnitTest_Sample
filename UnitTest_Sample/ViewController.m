@@ -24,7 +24,7 @@
     
     // セグメントの選択が変更されたときに呼ばれるメソッドを設定
     [self.segmentedBar addTarget:self
-                          action:@selector(segment_ValueChanged:)
+                          action:@selector(segmentValueChanged:)
                 forControlEvents:UIControlEventValueChanged];
 }
 
@@ -33,28 +33,39 @@
 
 /**
  * セグメントの選択が変更されたとき
- * @param sender セグメントの値
+ * @param sender 送られる情報
+ * これくらいなら関数化する必要はないが・・・
  */
-- (void)segment_ValueChanged:(id)sender
+- (void)segmentValueChanged:(id)sender
 {
     // 選択されたセグメントの値によってラベルを変える
     switch (self.segmentedBar.selectedSegmentIndex) {
         case 0: // Test0 が選択されたとき
-            self.valueLabel.text = @"Value = 0";
+            self.valueLabel.text = [self getValueLabel:0];
             break;
         case 1: // Test1 が選択されたとき
-            self.valueLabel.text = @"Value = 1";
-             break;
+            self.valueLabel.text = [self getValueLabel:1];
+            break;
         case 2: // Test2 が選択されたとき
-            self.valueLabel.text = @"Value = 2";
+            self.valueLabel.text = [self getValueLabel:2];
             break;
         case 3: // Test3 が選択されたとき
-            self.valueLabel.text = @"Value = 3";
+            self.valueLabel.text = [self getValueLabel:3];
             break;
         default: // それ以外(この場合は引けない)
-            self.valueLabel.text = @"Value = Error";
+            self.valueLabel.text = [self getValueLabel:-1];
             break;
     }
+}
+
+/**
+ * ラベルに表示するテキストを返す
+ * @param num 選択されたセグメントの値
+ */
+- (NSString*)getValueLabel:(NSInteger)num {
+    
+    NSString *value = [NSString stringWithFormat:@"Value = %ld", num];
+    return value;
 }
 
 #pragma mark - Memory Warning

@@ -9,11 +9,28 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
+// テストするメソッドのあるヘッダファイルを読み込む
+#import "ViewController.h"
+
+// テストするメソッドを呼び出す
+@interface ViewController (PrivateTests)
+
+- (NSString*)getValueLabel:(NSInteger)num;
+
+@end
+
 @interface UnitTest_SampleTests : XCTestCase
 
 @end
 
 @implementation UnitTest_SampleTests
+
+static NSString *const kValueZero = @"Value = 0";
+static NSString *const kValueOne = @"Value = 1";
+static NSString *const kValueTwo = @"Value = 2";
+static NSString *const kValueThree = @"Value = 3";
+static NSString *const kValueError = @"Value = -1";
+
 
 - (void)setUp {
     [super setUp];
@@ -25,16 +42,64 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
+// 0 が選択されたとき得られる値をテスト
+- (void)testGetValueLabelZero
+{
+    ViewController *VC = [[ViewController alloc] init];
+    NSString *str = [VC getValueLabel:0];
+    
+    // ==========================================
+    // 各値が一致していることを期待
+    XCTAssertTrue([str isEqualToString:kValueZero]);
+    // ==========================================
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+// 1 が選択されたとき得られる値をテスト
+- (void)testGetValueLabelOne
+{
+    ViewController *VC = [[ViewController alloc] init];
+    NSString *str = [VC getValueLabel:1];
+    
+    // ==========================================
+    // 各値が一致していることを期待
+    XCTAssertTrue([str isEqualToString:kValueOne]);
+    // ==========================================
+}
+
+// 2 が選択されたとき得られる値をテスト
+- (void)testGetValueLabelTwo
+{
+    ViewController *VC = [[ViewController alloc] init];
+    NSString *str = [VC getValueLabel:2];
+    
+    // ==========================================
+    // 各値が一致していることを期待
+    XCTAssertTrue([str isEqualToString:kValueTwo]);
+    // ==========================================
+}
+
+// 3 が選択されたとき得られる値をテスト
+- (void)testGetValueLabelThree
+{
+    ViewController *VC = [[ViewController alloc] init];
+    NSString *str = [VC getValueLabel:3];
+    
+    // ==========================================
+    // 各値が一致していることを期待
+    XCTAssertTrue([str isEqualToString:kValueThree]);
+    // ==========================================
+}
+
+// -1 が選択されたとき得られる値をテスト
+- (void)testGetValueLabelError
+{
+    ViewController *VC = [[ViewController alloc] init];
+    NSString *str = [VC getValueLabel:-1];
+    
+    // ==========================================
+    // 各値が一致していることを期待
+    XCTAssertTrue([str isEqualToString:kValueError]);
+    // ==========================================
 }
 
 @end
